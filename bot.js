@@ -36,4 +36,4 @@ String.prototype.toProperCase = function () {
 };
 color = '#FFFFF4';
 
-client.login('TOKEN');
+client.login(process.env.TOKEN);
