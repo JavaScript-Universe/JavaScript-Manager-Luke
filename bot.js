@@ -34,6 +34,6 @@ client.queues = new Map();
 String.prototype.toProperCase = function () {
   return this.replace(/([^\W_]+[^\s-]*) */g, function (txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 };
-color = '#FFFFF4';
+color = '#FFFFFE'; //Cannot be #FFFFFF as Discord renders full white embeds incorrectly.
 
 client.login(process.env.TOKEN);
