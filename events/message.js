@@ -25,6 +25,14 @@ module.exports = async (client, message) => {
         db.set(msg.author.id, count, 'count');
     }
 
+    // Auto dementionable helper.
+    if (message.mentions.roles.has('720788623376646175')) {
+        const role = client.guilds.cache.get('720661480143454340').roles.cache.get('720788623376646175');
+        const map = new Enmap({ name: 'helperRole' });
+        map.set('lastPinged', Date.now());
+        await role.edit({ mentionable: false });
+    }
+
     // Automod.
     if (/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-zA-Z]/g.test(msg.content)) {
         if (staff) return;
