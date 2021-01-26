@@ -71,5 +71,20 @@ module.exports = async client => {
       await clearedWarnsLog.send(em);
       new Enmap({ name: 'mutes' }).delete(db.id)
     });
-  }, 60000)
+  }, 60000);
+
+  // Make helper role mentionable again.
+  setInterval(async () => {
+    const map = new Enmap({ name: 'helperRole' });
+    if (!map.lastPinged) return;
+    const previous = map.get('lastPinged');
+    let cd = (1800000 - (Date.now() - previous));
+    if (previous !== null && previous !== undefined && cd > 0) return // Still has to be unmentionable.
+    if ((1800000 - (Date.now() - previous)) >= 0) return // Still has to be unmentionable.
+    // Make mentionable again.
+    const server = client.guilds.cache.get('720661480143454340');
+    const role = server.roles.cache.get('720788623376646175');
+    await role.edit({ mentionable: true });
+    map.delete('lastPinged');
+  }, 60000);
 };
