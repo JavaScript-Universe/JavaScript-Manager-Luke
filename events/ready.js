@@ -76,7 +76,7 @@ module.exports = async client => {
   // Make helper role mentionable again.
   setInterval(async () => {
     const map = new Enmap({ name: 'helperRole' });
-    if (!map.lastPinged) return;
+    if (!map.get('lastPinged')) return;
     const previous = map.get('lastPinged');
     let cd = (1800000 - (Date.now() - previous));
     if (previous !== null && previous !== undefined && cd > 0) return // Still has to be unmentionable.
