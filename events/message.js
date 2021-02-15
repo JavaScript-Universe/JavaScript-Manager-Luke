@@ -3,18 +3,16 @@ const Enmap = require('enmap');
 const { warn } = require('../handler/functions.js');
 
 module.exports = async (client, message) => {
-    let runCommand = false;
     const msg = message;
-    if(!msg.guild) return; 
+    if (!msg.guild) return; 
     let prefix = '!'
     
-    if (!msg.content) return;
-    if (msg.author.bot || (message.guild && !message.channel.permissionsFor(client.user).has('SEND_MESSAGES'))) return;
+    if (msg.author.bot || (message.guild && !message.channel.permissionsFor(client.user).has('SEND_MESSAGES')) || !msg.content) return;
 
-    moderation = client.guilds.cache.get('757759707674050591').member(message.member.id) ? client.guilds.cache.get('757759707674050591').member(message.member.id).roles.cache.has('757768007370932254') : false;
-    support = client.guilds.cache.get('757759707674050591').member(message.member.id) ? client.guilds.cache.get('757759707674050591').member(message.member.id).roles.cache.has('757768012618006569') : false;
-    staff = client.guilds.cache.get('757759707674050591').member(message.member.id) ? client.guilds.cache.get('757759707674050591').member(message.member.id).roles.cache.has('757764284779593738') : false;
-    admin = client.guilds.cache.get('757759707674050591').member(message.member.id) ? client.guilds.cache.get('757759707674050591').member(message.member.id).roles.cache.has('757762082929377281') : false; 
+    moderation = client.guilds.cache.get('757759707674050591').members.cache.get(message.member.id) ? client.guilds.cache.get('757759707674050591').members.cache.get(message.member.id).roles.cache.has('757768007370932254') : false;
+    support = client.guilds.cache.get('757759707674050591').members.cache.get(message.member.id) ? client.guilds.cache.get('757759707674050591').members.cache.get(message.member.id).roles.cache.has('757768012618006569') : false;
+    staff = client.guilds.cache.get('757759707674050591').members.cache.get(message.member.id) ? client.guilds.cache.get('757759707674050591').members.cache.get(message.member.id).roles.cache.has('757764284779593738') : false;
+    admin = client.guilds.cache.get('757759707674050591').members.cache.get(message.member.id) ? client.guilds.cache.get('757759707674050591').members.cache.get(message.member.id).roles.cache.has('757762082929377281') : false; 
 
     // Staff messages counter.
     if (client.guilds.cache.get('757759707674050591').members.cache.some(m => m.id == msg.author.id)) {
@@ -36,15 +34,15 @@ module.exports = async (client, message) => {
     // Automod.
     if (/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-zA-Z]/g.test(msg.content)) {
         if (staff) return;
-        if (msg.channel.id == '721462495595855912' /* Promotions Channel */ || msg.channel.id == '720938094353711144' /* Partnerships Channel */) return;
+        if (['721462495595855912' /* Promotions Channel */, '720938094353711144' /* Partnerships Channel */].includes(msg.channel.id)) return;
         const invite = await client.fetchInvite((msg.content.match(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-zA-Z]/g).join(' ').split('/')[3] || msg.content.match(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-zA-Z]/g).join(' ').split('/')[1]));
         if (invite.guild.id == '720661480143454340') return;
-        msg.delete({ timeout: 0 });
+        msg.delete();
         const alertsChannel = client.channels.cache.get('780897877189722123');
         const em = new MessageEmbed()
         .setColor("RED")
         .setDescription("Hey! That's not allowed here! Do not try to send invites to another server!");
-        msg.channel.send(msg.member.toString(), em).then(m => m.delete({ timeout: 8000 }));
+        msg.channel.send(msg.member.toString(), em).then(m => setTimeout(() => m.delete(), 8000));
         const em1 = new MessageEmbed()
         .setTitle("Auto Mod")
         .setDescription("Someone tried to send an invite to another server, they have been warned!")
@@ -52,7 +50,7 @@ module.exports = async (client, message) => {
         .addField("Channel:", msg.channel.toString())
         .addField("User:", msg.author.tag)
         .addField("Nickname:", msg.member.displayName)
-        .addField("Invite Link:", msg.content.match(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-zA-Z]/g).join(' '))
+        .addField("Invite Link:", msg.content.match(/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite|dsc\.gg)\/.+[a-zA-Z]/g).join(' '))
         .setFooter(`User ID: ${msg.author.id}`);
         alertsChannel.send(em1);
     }
@@ -63,10 +61,11 @@ module.exports = async (client, message) => {
     const cmdName = args.shift().toLowerCase();
     let command = client.commands.get(cmdName) || client.commands.get(client.aliases.get(cmdName));
 
-    if (!runCommand) if (!msg.content.startsWith(prefix)) return; // Checks if message starts with server prefix.
+    if (!msg.content.startsWith(prefix)) return; // Checks if message starts with server prefix.
     if (!command) {
-        if (new Enmap({ name: 'infos' }).has(cmdName)) {
-            const info = new Enmap({ name: 'infos' }).get(cmdName);
+        const infosEnmap = new Enmap({ name: 'infos' })
+        if (infosEnmap.has(cmdName)) {
+            const info = infosEnmap.get(cmdName);
             const em = new MessageEmbed()
             .setTitle(cmdName.toProperCase())
             .setColor(color)
