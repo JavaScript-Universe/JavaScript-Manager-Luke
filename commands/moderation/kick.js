@@ -13,7 +13,7 @@ module.exports = {
     const cannedMsgs = new Enmap({ name: 'cannedMsgs' });
     const server = client.guilds.cache.get('757759707674050591');
     if (!moderation) return msg.reply('You have to be with the moderation team to be able to use this command!').then(d => d.delete({ timeout: 5000 })).then(msg.delete({ timeout: 2000 }));
-    const toWarn = msg.mentions.users.first() || msg.guild.members.cache.get(args[0]);
+    const toWarn = msg.mentions.members.first() || msg.guild.members.cache.get(args[0]);
     const moderator = msg.member;
     if (!toWarn) return msg.reply('Please insert a member to kick!').then(d => d.delete({ timeout: 5000 })).then(msg.delete({ timeout: 2000 }));
     warnsDB.ensure(toWarn.id, {warns: {}});

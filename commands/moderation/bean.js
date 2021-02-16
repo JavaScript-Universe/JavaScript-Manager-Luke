@@ -39,7 +39,7 @@ module.exports = {
     .setColor("ORANGE")
     .setDescription(`You were beaned from **JavaScript Universe** for ${reason}!`)
     .addField("Case ID", `\`${caseID}\``)
-    .addField("Bean Appeal Link", "[Click Me](https://docs.google.com/forms/d/1zxH9sFrTEHgDd56Jm1B4ieDTJbYVv4JGwkhyK3cYxDY)")
+    .addField("Bean Appeal Link", "[Click Me](https://bit.ly/3u7989a)")
     .setTimestamp();
     await toWarn.send(emUser).catch(err => err);
     const emChan = new MessageEmbed()

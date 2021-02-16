@@ -22,7 +22,7 @@ module.exports = {
     if (action && action == 'request') {
         if (breaksDB.get(msg.author.id).status == 'N/A') {
             if (!duration) return msg.reply("Please state for how long you will be on break (e.g 2Days)").then(d => d.delete({ timeout: 10000 })).then(msg.delete({ timeout: 3000 }));
-            if (reason.length < 5) return msg.reply("Please state why you are going on break (e.g \"I have to learn for a test\")").then(d => d.delete({ timeout: 10000 })).then(msg.delete({ timeout: 3000 }));
+            if (reason.length < 2) return msg.reply("Please state why you are going on break (e.g \"I have to learn for a test\")").then(d => d.delete({ timeout: 10000 })).then(msg.delete({ timeout: 3000 }));
             breaksDB.set(msg.author.id, { ID: msg.author.id, requestedAt: requestedAt, status: 'pending', reason: reason.join(' '), duration: duration });
             msg.reply("Your break request has been added to the queue, please wait for it be approved before actually going on break!").then(d => d.delete({ timeout: 10000 })).then(msg.delete({ timeout: 3000 }));
             const em = new MessageEmbed()

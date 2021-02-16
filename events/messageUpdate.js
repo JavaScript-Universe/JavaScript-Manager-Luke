@@ -2,36 +2,19 @@ const { Discord, MessageEmbed } = require('discord.js');
 const Enmap = require('enmap');
 const { warn } = require('../handler/functions.js');
 
-module.exports = async (client, message) => {
+module.exports = async (client, oldMessage, newMessage) => {
     let runCommand = false;
-    const msg = message;
-    if(!msg.guild) return; 
+    const msg = newMessage;
+    if(!newMessage.guild) return; 
     let prefix = '!'
     
-    if (!msg.content) return;
-    if (msg.author.bot || (message.guild && !message.channel.permissionsFor(client.user).has('SEND_MESSAGES'))) return;
+    if (!newMessage.content) return;
+    if (msg.author.bot || (msg.guild && !msg.channel.permissionsFor(client.user).has('SEND_MESSAGES'))) return;
 
-    moderation = client.guilds.cache.get('757759707674050591').member(message.member.id) ? client.guilds.cache.get('757759707674050591').member(message.member.id).roles.cache.has('757768007370932254') : false;
-    support = client.guilds.cache.get('757759707674050591').member(message.member.id) ? client.guilds.cache.get('757759707674050591').member(message.member.id).roles.cache.has('757768012618006569') : false;
-    staff = client.guilds.cache.get('757759707674050591').member(message.member.id) ? client.guilds.cache.get('757759707674050591').member(message.member.id).roles.cache.has('757764284779593738') : false;
-    admin = client.guilds.cache.get('757759707674050591').member(message.member.id) ? client.guilds.cache.get('757759707674050591').member(message.member.id).roles.cache.has('757762082929377281') : false; 
-
-    // Staff messages counter.
-    if (client.guilds.cache.get('757759707674050591').members.cache.some(m => m.id == msg.author.id)) {
-        const db = new Enmap({ name: 'staffChecks' });
-        db.ensure(msg.author.id, {id: msg.author.id, count: 1});
-        let count = db.get(msg.author.id).count;
-        count += 1;
-        db.set(msg.author.id, count, 'count');
-    }
-
-    // Auto dementionable helper.
-    if (message.mentions.roles.has('720788623376646175')) {
-        const role = client.guilds.cache.get('720661480143454340').roles.cache.get('720788623376646175');
-        const map = new Enmap({ name: 'helperRole' });
-        map.set('lastPinged', Date.now());
-        await role.edit({ mentionable: false });
-    }
+    moderation = client.guilds.cache.get('757759707674050591').member(msg.member.id) ? client.guilds.cache.get('757759707674050591').member(msg.member.id).roles.cache.has('757768007370932254') : false;
+    support = client.guilds.cache.get('757759707674050591').member(msg.member.id) ? client.guilds.cache.get('757759707674050591').member(msg.member.id).roles.cache.has('757768012618006569') : false;
+    staff = client.guilds.cache.get('757759707674050591').member(msg.member.id) ? client.guilds.cache.get('757759707674050591').member(msg.member.id).roles.cache.has('757764284779593738') : false;
+    admin = client.guilds.cache.get('757759707674050591').member(msg.member.id) ? client.guilds.cache.get('757759707674050591').member(msg.member.id).roles.cache.has('757762082929377281') : false; 
 
     // Automod.
     if (/(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-zA-Z]/g.test(msg.content)) {
