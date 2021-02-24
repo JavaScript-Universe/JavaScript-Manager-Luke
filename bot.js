@@ -4,7 +4,7 @@ const fs = require('fs');
 
 
 // Start of Discord Bot
-const client = new Client();
+const client = new Client({  restTimeOffset: 0 });
 client.commands = new Collection();
 client.events = new Collection();
 client.aliases = new Collection();
