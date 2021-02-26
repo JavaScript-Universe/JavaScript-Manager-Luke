@@ -12,7 +12,7 @@ module.exports = {
     if (!admin) return msg.reply("I'm sorry but you have to be a community manager to use this command!").then(d => d.delete({ timeout: 7000 })).then(msg.delete({ timeout: 3000 }));
     const announceChan = client.channels.cache.get('720677227427266710');
     await announceChan.messages.fetch();
-    if (!args) return msg.reply("Make sure to include a description for the announcement!");
+    if (args.length < 5) return msg.reply("Make sure to include a description for the announcement!");
     const pollDesc = args.join(' ').trim();
     const em = new MessageEmbed()
     .setColor(color)

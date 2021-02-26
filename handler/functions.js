@@ -10,7 +10,7 @@ async function warn(msg, id, points, reason) {
     warnsDB.ensure(id, {points: 0, warns: {}});
     const toWarn = msg.client.users.cache.get(id);
     if (!toWarn) return false;
-    const warnLogs = msg.client.channels.cache.get('757770065927209051');
+    const warnLogs = msg.client.channels.cache.get('812011010977562641');
     const warnedTotalPoints = warnsDB.get(id).points + parseInt(points);
     function makeid(length) {
       var result           = '';

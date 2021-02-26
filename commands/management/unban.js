@@ -18,7 +18,7 @@ module.exports = {
     if (!user) return msg.reply("Please insert the user you want to unban.").then(d => d.delete({ timeout: 12000 })).then(msg.delete({ timeout: 3000 }));
     warnsDB.ensure(user.id, {points: 0, warns: {}});
     client.guilds.cache.get('720661480143454340').members.unban(user.id, `unbanning admin - ${msg.author.tag}`).catch(err => err);
-    const clearedWarnsLog = client.channels.cache.get('761006641373118474');
+    const clearedWarnsLog = client.channels.cache.get('812011010386034699');
     const em = new MessageEmbed()
     .setTitle("Unbanned")
     .setColor("GREEN")

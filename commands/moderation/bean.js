@@ -11,7 +11,7 @@ module.exports = {
   run: async (client, msg, args, prefix, command, Discord, MessageEmbed) => {
     const warnsDB = new Enmap({ name: 'warns' });
     const cannedMsgs = new Enmap({ name: 'cannedMsgs' });
-    const server = client.guilds.cache.get('757759707674050591');
+    const server = client.guilds.cache.get('812011009682178089');
     if (!moderation) return msg.reply('You have to be with the moderation team to be able to use this command!').then(d => d.delete({ timeout: 5000 })).then(msg.delete({ timeout: 2000 }));
     if (!msg.mentions.members && !client.users.cache.get(args[0])) {
       await client.users.fetch(args[0]);

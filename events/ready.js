@@ -31,12 +31,12 @@ module.exports = async client => {
           if (Date.now() - lastPost > WEEK) {
               lastPost += WEEK;
               const filter = db.filter(d => d.id && typeof d.id == 'string');
-              const checkChan = client.channels.cache.get('792711754311794728');
+              const checkChan = client.channels.cache.get('812011010386034702');
               const em = new MessageEmbed()
               .setColor(color)
               .setTitle(`Staff Checks | ${moment(Date.now()).format('LL')}`);
               for(const data of filter) {
-                em.addField(`${(await client.users.fetch(data[1].id)).tag} | ${(await client.guilds.cache.get('720661480143454340').members.fetch(data[1].id)) ? (await client.guilds.cache.get('720661480143454340').members.fetch(data[1].id)).roles.highest.name : 'N/A'}`, `${data[1].count.toLocaleString()} messages sent`);
+                em.addField(`${(await client.users.fetch(data[1].id)).tag} | ${(await client.guilds.cache.get('812011009682178089').members.fetch(data[1].id)) ? (await client.guilds.cache.get('812011009682178089').members.fetch(data[1].id)).roles.highest.name : 'N/A'}`, `${data[1].count.toLocaleString()} messages sent`);
               }
               checkChan.send(em);
               db.clear()
@@ -58,7 +58,7 @@ module.exports = async client => {
       if (previous !== null && previous !== undefined && cd > 0) return // Still muted.
       if ((db.duration - (Date.now() - previous)) >= 0) return // Still muted.
       // Unmute here.
-      const server = client.guilds.cache.get('720661480143454340');
+      const server = client.guilds.cache.get('812011009682178089');
       await server.member(db.id).roles.set(db.roles);
       await server.member(db.id).send("You were unmuted in **JavaScript Universe**");
       const clearedWarnsLog = client.channels.cache.get('795937907809845248');
@@ -82,7 +82,7 @@ module.exports = async client => {
     if (previous !== null && previous !== undefined && cd > 0) return // Still has to be unmentionable.
     if ((1800000 - (Date.now() - previous)) >= 0) return // Still has to be unmentionable.
     // Make mentionable again.
-    const server = client.guilds.cache.get('720661480143454340');
+    const server = client.guilds.cache.get('812011009682178089');
     const role = server.roles.cache.get('720788623376646175');
     await role.edit({ mentionable: true });
     map.delete('lastPinged');

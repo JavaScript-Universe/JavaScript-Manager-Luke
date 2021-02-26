@@ -11,7 +11,7 @@ module.exports = {
   run: async (client, msg, args, prefix, command, Discord, MessageEmbed) => {
     const warnsDB = new Enmap({ name: 'warns' });
     const cannedMsgs = new Enmap({ name: 'cannedMsgs' });
-    const server = client.guilds.cache.get('757759707674050591');
+    const server = client.guilds.cache.get('812011009682178089');
     if (!moderation) return msg.reply('You have to be with the moderation team to be able to use this command!').then(d => d.delete({ timeout: 5000 })).then(msg.delete({ timeout: 2000 }));
     const toWarn = msg.mentions.members.first() || msg.guild.members.cache.get(args[0]);
     const moderator = msg.member;
@@ -22,7 +22,7 @@ module.exports = {
     if (cannedMsgs.has(reason)) reason = cannedMsgs.get(reason);
     if (moderator.id == toWarn.id) return msg.reply("You may not kick yourself dumby!")
     if (server.member(moderator.id).roles.highest.rawPosition <= (server.member(toWarn.id) ? server.member(toWarn.id).roles.highest.rawPosition : 0)) return msg.reply('You may not kick someone with the same rank or a rank higher as yourself!').then(d => d.delete({ timeout: 5000 })).then(msg.delete({ timeout: 2000 }));
-    const warnLogs = server.channels.cache.get('757770065927209051');
+    const warnLogs = server.channels.cache.get('812011010977562641');
     function makeid(length) {
       var result           = '';
       var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

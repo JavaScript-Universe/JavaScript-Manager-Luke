@@ -10,7 +10,7 @@ module.exports = {
   description: 'Edit a tag (only for staff)',
   run: async (client, msg, args, prefix, command, Discord, MessageEmbed) => {
     if (!staff) return msg.reply(`I'm sorry but you have to be in the staff team to use this command!`);
-    if (!args[0]) return msg.reply('Please use the command like this: .editinfo <tag> <info>');
+    if (!args[0]) return msg.reply('Please use the command like this: !editinfo <tag> <info>');
     const infoName = args[0];
     if (!args.join(' ').replace(args[0], '').includes('`')) return msg.reply('Please put the info in a single backtick codeblock \`like this\`');
     let info = args.join(' ').replace(args[0], '').replace(/\n/g, '\\n').trim();
