@@ -10,7 +10,7 @@ module.exports = {
   description: 'Edit a canned message (only for staff)',
   run: async (client, msg, args, prefix, command, Discord, MessageEmbed) => {
     if (!staff) return msg.reply(`I'm sorry but you have to be in the management team to use this command!`);
-    if (!args[0]) return msg.reply('Please use the command like this: .editcanned <prefix> <canned message>');
+    if (!args[0]) return msg.reply('Please use the command like this: !editcanned <prefix> <canned message>');
     const infoName = args[0];
     if (!args.join(' ').replace(args[0], '').includes('`')) return msg.reply('Please put the canned message in a single backtick codeblock \`like this\`');
     let info = args.join(' ').replace(args[0], '').replace(/\n/g, '\\n').trim();

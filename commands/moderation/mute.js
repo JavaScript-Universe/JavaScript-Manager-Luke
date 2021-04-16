@@ -12,9 +12,9 @@ module.exports = {
     const warnsDB = new Enmap({ name: 'warns' });
     const mutedDB = new Enmap({ name: 'mutes' });
     const cannedMsgs = new Enmap({ name: 'cannedMsgs' });
-    const server = client.guilds.cache.get('757759707674050591');
+    const server = client.guilds.cache.get('812011009682178089');
     if (!moderation) return msg.reply('You have to be with the moderation team to be able to use this command!').then(d => d.delete({ timeout: 5000 })).then(msg.delete({ timeout: 2000 }));
-    const toWarn = msg.mentions.users.first() || msg.guild.members.cache.get(args[0]);
+    const toWarn = msg.mentions.members.first() || msg.guild.members.cache.get(args[0]);
     const moderator = msg.member;
     if (!toWarn) return msg.reply('Please insert a member to mute!').then(d => d.delete({ timeout: 5000 })).then(msg.delete({ timeout: 2000 }));
     warnsDB.ensure(toWarn.id, {warns: {}});
@@ -27,7 +27,7 @@ module.exports = {
     if (cannedMsgs.has(reason)) reason = cannedMsgs.get(reason);
     if (moderator.id == toWarn.id) return msg.reply("You may not mute yourself dumby!")
     if (server.member(moderator.id).roles.highest.rawPosition <= (server.member(toWarn.id) ? server.member(toWarn.id).roles.highest.rawPosition : 0)) return msg.reply('You may not mute someone with the same rank or a rank higher as yourself!').then(d => d.delete({ timeout: 5000 })).then(msg.delete({ timeout: 2000 }));
-    const warnLogs = server.channels.cache.get('757770065927209051');
+    const warnLogs = server.channels.cache.get('812011010977562641');
     function makeid(length) {
       var result           = '';
       var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -42,7 +42,7 @@ module.exports = {
     const em = new MessageEmbed()
     .setTitle(`Case - ${caseID}`)
     .setColor("ORANGE")
-    .addField("Member", `${toWarn.tag} (${toWarn.id})`)
+    .addField("Member", `${toWarn.user.tag} (${toWarn.id})`)
     .addField("Moderator", `${moderator.user.tag} (${moderator.id})`)
     .addField("Reason", `\`(muted) - ${reason}\``)
     .addField("Duration", moment.duration(duration, "seconds").format('d [days], h [hours], m [minutes] [and] s [seconds]'))
@@ -58,7 +58,7 @@ module.exports = {
     .setTimestamp();
     await toWarn.send(emUser).catch(err => err);
     const emChan = new MessageEmbed()
-    .setDescription(`You have succesfully muted **${toWarn.tag}**.`)
+    .setDescription(`You have succesfully muted **${toWarn.user.tag}**.`)
     .setColor("ORANGE")
     .setTimestamp();
     await msg.channel.send(emChan).then(d => d.delete({ timeout: 6000 })).then(msg.delete({ timeout: 2000 }));

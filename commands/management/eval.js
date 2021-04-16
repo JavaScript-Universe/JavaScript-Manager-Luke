@@ -10,7 +10,6 @@ module.exports = {
     if (!admin) return
     const server = msg.guild;
     const message = msg;
-    const luke = 'Big Brain Nerd';
     const Enmap = require('enmap');
     const member = msg.mentions.members.first()
     const { warn } = require('../../handler/functions.js');
@@ -25,10 +24,11 @@ module.exports = {
         emb.addField('Result', code('js', res))
           .addField('Type', code('css', typeof evald === 'undefined' ? 'Unknown' : typeof evald))
           .setColor('#8fff8d')
-      } catch (err) {
-        emb.addField('Error', code('js', err))
-          .setColor('#ff5d5d')
-      } finally {
+        } catch (err) {
+          console.error(err);
+          emb.addField('Error', code('js', err))
+            .setColor('#ff5d5d')
+        } finally {
         msg.channel.send(emb).catch(err => {
             msg.channel.send(`There was an error while displaying the eval result! \n ${err.message}`)
           })

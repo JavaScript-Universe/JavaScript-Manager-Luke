@@ -11,7 +11,7 @@ module.exports = {
   run: async (client, msg, args, prefix, command, Discord, MessageEmbed) => {
     const warnsDB = new Enmap({ name: 'warns' });
     const cannedMsgs = new Enmap({ name: 'cannedMsgs' });
-    const server = client.guilds.cache.get('757759707674050591');
+    const server = client.guilds.cache.get('812011009682178089');
     if (!moderation) return msg.reply('You have to be with the moderation team to be able to use this command!').then(d => d.delete({ timeout: 5000 })).then(msg.delete({ timeout: 2000 }));
     if (!msg.mentions.members && !client.users.cache.get(args[0])) {
       await client.users.fetch(args[0]);
@@ -39,7 +39,7 @@ module.exports = {
     .setColor("ORANGE")
     .setDescription(`You were beaned from **JavaScript Universe** for ${reason}!`)
     .addField("Case ID", `\`${caseID}\``)
-    .addField("Bean Appeal Link", "[Click Me](https://docs.google.com/forms/d/1zxH9sFrTEHgDd56Jm1B4ieDTJbYVv4JGwkhyK3cYxDY)")
+    .addField("Bean Appeal Link", "[Click Me](https://bit.ly/3u7989a)")
     .setTimestamp();
     await toWarn.send(emUser).catch(err => err);
     const emChan = new MessageEmbed()

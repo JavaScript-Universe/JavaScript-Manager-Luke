@@ -17,12 +17,12 @@ module.exports = {
     const requestedAt = Date.now();
     const duration = args[1];
     const reason = args.slice(2);
-    const breakRole = client.guilds.cache.get('757759707674050591').roles.cache.get('776383710940758027');
-    const breakQueue = client.channels.cache.get('776383187441418260');
+    const breakRole = client.guilds.cache.get('812011009682178089').roles.cache.get('812011009682178090');
+    const breakQueue = client.channels.cache.get('812011010386034700');
     if (action && action == 'request') {
         if (breaksDB.get(msg.author.id).status == 'N/A') {
             if (!duration) return msg.reply("Please state for how long you will be on break (e.g 2Days)").then(d => d.delete({ timeout: 10000 })).then(msg.delete({ timeout: 3000 }));
-            if (reason.length < 5) return msg.reply("Please state why you are going on break (e.g \"I have to learn for a test\")").then(d => d.delete({ timeout: 10000 })).then(msg.delete({ timeout: 3000 }));
+            if (reason.length < 2) return msg.reply("Please state why you are going on break (e.g \"I have to learn for a test\")").then(d => d.delete({ timeout: 10000 })).then(msg.delete({ timeout: 3000 }));
             breaksDB.set(msg.author.id, { ID: msg.author.id, requestedAt: requestedAt, status: 'pending', reason: reason.join(' '), duration: duration });
             msg.reply("Your break request has been added to the queue, please wait for it be approved before actually going on break!").then(d => d.delete({ timeout: 10000 })).then(msg.delete({ timeout: 3000 }));
             const em = new MessageEmbed()
@@ -43,7 +43,7 @@ module.exports = {
         const oldReason = breaksDB.get(thatRequested).reason;
         const oldDuration = breaksDB.get(thatRequested).duration;
         breaksDB.set(thatRequested, { ID: thatRequested, requestedAt: oldRequestedAt, status: 'approved', reason: oldReason, duration: oldDuration });
-        client.guilds.cache.get('757759707674050591').member(thatRequested).roles.add(breakRole);
+        client.guilds.cache.get('812011009682178089').member(thatRequested).roles.add(breakRole);
         const em = new MessageEmbed()
         .setTitle(`Approved ${client.users.cache.get(thatRequested).username}'s Break Request`)
         .setColor("GREEN")
