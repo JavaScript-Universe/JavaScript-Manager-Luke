@@ -24,3 +24,6 @@ You can contribute to this bot if you want to.  Create a pull request with a goo
 
 ## Self Hosting Support:
 **WE DO NOT PROVIDE SELF HOSTING SUPPORT WITH THIS BOT!**  Although, if you need help with something on a broader scale relating to Javascript, we can help you in our [server](https://discord.gg/KBfTgpx)
+
+## Note
+- This repository is being discontinued, which means that things might not work as expected.
