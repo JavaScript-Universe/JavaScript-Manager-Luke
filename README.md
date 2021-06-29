@@ -10,7 +10,7 @@
 This is Lion Luke's version of the JavaScript Universe Manager Discord Bot.
 
 ## About
-**JavaScript Manager** is the official discord bot of the JavaScript Universe, that out moderators and managers use to maintain peace within the community.  You have probably seen this bot in the [Javascript Universe Discord Server](https://discord.gg/KBfTgpx) as it plays music, handles moderation, uses canned messages, sends announcements, has a ton of utility commands, and so much more.
+**JavaScript Manager** is the official discord bot of the JavaScript Universe, that our moderators and managers use to maintain peace within the community.  You have probably seen this bot in the [Javascript Universe Discord Server](https://discord.gg/KBfTgpx) as it plays music, handles moderation, uses canned messages, sends announcements, has a ton of utility commands, and so much more.
 
 ## Setup Instructions:
 - Fork this repository
